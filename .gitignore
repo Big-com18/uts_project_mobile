@@ -43,3 +43,15 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Flutter
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+
+# Plugin/Generated files
+linux/flutter/generated_*
+windows/flutter/generated_*
+ios/Flutter/Generated.xcconfig
