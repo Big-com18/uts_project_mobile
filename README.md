@@ -1,17 +1,96 @@
-# uas_project_mobile
+# Student Directory App
 
-A new Flutter project.
+Aplikasi mobile untuk manajemen data direktori mahasiswa yang dibangun menggunakan Flutter.
 
-## Getting Started
+## 🛠️ Persyaratan Sistem (Prerequisites)
 
-This project is a starting point for a Flutter application.
+Sebelum memulai, pastikan perangkat Anda sudah menginstal:
 
-A few resources to get you started if this is your first Flutter project:
+* Git
+* Flutter SDK
+* VS Code atau Android Studio
+* Android Emulator atau perangkat fisik yang telah dikonfigurasi
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+### Referensi Instalasi
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+* Git: https://git-scm.com/downloads
+* Flutter SDK: https://docs.flutter.dev/get-started/install
+
+---
+
+## 🚀 Panduan Instalasi & Menjalankan Proyek
+
+Ikuti langkah-langkah berikut untuk menjalankan proyek di lingkungan lokal Anda.
+
+### 1. Clone Repository
+
+Buka terminal dan jalankan perintah berikut untuk mengunduh source code:
+
+```bash
+git clone https://github.com/username-anda/student_directory_app.git
+```
+
+> **Catatan:** Ganti URL di atas dengan URL repository GitHub yang sebenarnya.
+
+### 2. Masuk ke Direktori Proyek
+
+Pindah ke folder proyek yang telah di-clone:
+
+```bash
+cd student_directory_app
+```
+
+### 3. Install Dependencies
+
+Unduh seluruh package yang dibutuhkan oleh Flutter:
+
+```bash
+flutter pub get
+```
+
+### 4. Jalankan Aplikasi
+
+Pastikan emulator sudah berjalan atau perangkat fisik telah terhubung, kemudian jalankan:
+
+```bash
+flutter run
+```
+
+---
+
+## 📂 Struktur Proyek
+
+```text
+student_directory_app/
+├── lib/
+├── assets/
+├── android/
+├── ios/
+├── pubspec.yaml
+└── README.md
+```
+
+---
+
+## ✨ Fitur Utama
+
+* Menampilkan daftar mahasiswa
+* Menambahkan data mahasiswa
+* Mengubah data mahasiswa
+* Menghapus data mahasiswa
+* Pencarian data mahasiswa
+* Tampilan antarmuka yang responsif
+
+---
+
+## 👨‍💻 Teknologi yang Digunakan
+
+* Flutter
+* Dart
+* Material Design
+
+---
+
+## 📄 Lisensi
+
+Proyek ini dibuat untuk kebutuhan pembelajaran dan pengembangan aplikasi mobile menggunakan Flutter.
