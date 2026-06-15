@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'pages/list_mahasiswa_pages.dart';
+import 'pages/tambah_mahasiswa.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,10 +15,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Student Directory',
       theme: ThemeData(
-        // Font yang bersih mendukung desain neo-brutalism/minimalist
         fontFamily: 'Inter', 
       ),
-      home: const ListMahasiswaPages(), // Mengarah ke class yang baru dibuat
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const ListMahasiswaPages(),
+        '/tambah-mahasiswa': (context) => const TambahMahasiswaPage(),
+
+      },
     );
   }
 }
