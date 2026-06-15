@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'tambah_mahasiswa.dart';
+import 'hapus_mahasiswa.dart';
 
 class ListMahasiswaPages extends StatefulWidget {
   const ListMahasiswaPages({super.key});
@@ -84,7 +85,12 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
               color: Colors.transparent,
               child: InkWell(
                 onTap: () {
-                  // TODO: Navigasi ke Halaman 3 (Profile) bawa data student
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HapusMahasiswaPage(student: student),
+                    ),
+                  );
                 },
                 borderRadius: BorderRadius.circular(12),
                 child: Padding(
