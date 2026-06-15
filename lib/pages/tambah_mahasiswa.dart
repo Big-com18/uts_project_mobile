@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
+import '../models/student.dart';
+import '../data/app_data.dart';
 
 class TambahMahasiswaPage extends StatefulWidget {
   const TambahMahasiswaPage({super.key});
@@ -9,7 +12,44 @@ class TambahMahasiswaPage extends StatefulWidget {
 
 class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
   final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _phoneController = TextEditingController();
+  String? _selectedDomisili;
   bool _isAgreed = false;
+  late String _randomAvatar;
+
+  @override
+  void initState() {
+    super.initState();
+    _randomAvatar = avatarList[Random().nextInt(avatarList.length)];
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _phoneController.dispose();
+    super.dispose();
+  }
+
+  void _submit() {
+    if (_formKey.currentState!.validate()) {
+      if (_selectedDomisili == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Silakan pilih domisili')),
+        );
+        return;
+      }
+
+      final newStudent = Student(
+        name: _nameController.text,
+        avatar: _randomAvatar,
+        domisili: _selectedDomisili!,
+        phone: _phoneController.text,
+      );
+
+      Navigator.pop(context, newStudent);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +92,7 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                   children: [
                     CircleAvatar(
                       radius: 50,
-                      backgroundColor: Colors.grey.shade100,
-                      child: Icon(Icons.person, size: 50, color: Colors.grey.shade300),
+                      backgroundImage: NetworkImage(_randomAvatar),
                     ),
                     const SizedBox(height: 12),
                     Text(
@@ -79,6 +118,7 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
               ),
               const SizedBox(height: 8),
               TextFormField(
+                controller: _nameController,
                 decoration: InputDecoration(
                   hintText: 'Masukkan nama',
                   hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 14),
@@ -94,6 +134,12 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                     borderSide: BorderSide(color: Colors.grey.shade200),
                   ),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Nama wajib diisi';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 20),
 
@@ -107,10 +153,20 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                 ),
               ),
               const SizedBox(height: 8),
-              TextFormField(
-                maxLines: 4,
+              DropdownButtonFormField<String>(
+                value: _selectedDomisili,
+                items: domisiliList.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (newValue) {
+                  setState(() {
+                    _selectedDomisili = newValue;
+                  });
+                },
                 decoration: InputDecoration(
-                  hintText: '',
                   filled: true,
                   fillColor: Colors.grey.shade50,
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -123,6 +179,7 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                     borderSide: BorderSide(color: Colors.grey.shade200),
                   ),
                 ),
+                validator: (value) => value == null ? 'Domisili wajib dipilih' : null,
               ),
               const SizedBox(height: 20),
 
@@ -137,7 +194,8 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
               ),
               const SizedBox(height: 8),
               TextFormField(
-                keyboardType: TextInputType.phone,
+                controller: _phoneController,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   hintText: 'Contoh: 081234567890',
                   hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 14),
@@ -153,6 +211,12 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                     borderSide: BorderSide(color: Colors.grey.shade200),
                   ),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Nomor HP wajib diisi';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 24),
 
@@ -196,10 +260,7 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                 width: double.infinity,
                 height: 54,
                 child: ElevatedButton(
-                  onPressed: _isAgreed ? () {
-                    // TODO: Simpan data
-                    Navigator.pop(context);
-                  } : null,
+                  onPressed: _isAgreed ? _submit : null,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: _isAgreed ? Colors.black : Colors.grey.shade200,
                     foregroundColor: _isAgreed ? Colors.white : Colors.grey.shade400,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'pages/list_mahasiswa_pages.dart';
 import 'pages/tambah_mahasiswa.dart';
+import 'pages/profile_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const ListMahasiswaPages(),
         '/tambah-mahasiswa': (context) => const TambahMahasiswaPage(),
-
+        '/profile': (context) => const ProfilePage(),
       },
     );
   }

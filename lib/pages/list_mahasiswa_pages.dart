@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'tambah_mahasiswa.dart';
+import '../models/student.dart';
+import '../data/app_data.dart';
 
 class ListMahasiswaPages extends StatefulWidget {
   const ListMahasiswaPages({super.key});
@@ -9,39 +10,40 @@ class ListMahasiswaPages extends StatefulWidget {
 }
 
 class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
-  // Data awal yang diwajibkan dari dokumen UTS
-  final List<Map<String, String>> students = [
-    {
-      'name': 'Budi Santoso',
-      'avatar': 'https://i.pravatar.cc/150?img=1',
-      'domisili': 'Jakarta Selatan',
-      'phone': '081234567890'
-    },
-    {
-      'name': 'Sari Dewi',
-      'avatar': 'https://i.pravatar.cc/150?img=5',
-      'domisili': 'Bekasi',
-      'phone': '087654321098'
-    },
-    {
-      'name': 'Ahmad Fauzi',
-      'avatar': 'https://i.pravatar.cc/150?img=3',
-      'domisili': 'Depok',
-      'phone': '082198765432'
-    },
-    {
-      'name': 'Rina Kusuma',
-      'avatar': 'https://i.pravatar.cc/150?img=8',
-      'domisili': 'Tangerang Selatan',
-      'phone': '089876543210'
-    },
-    {
-      'name': 'Dian Pratama',
-      'avatar': 'https://i.pravatar.cc/150?img=11',
-      'domisili': 'Bogor',
-      'phone': '085678901234'
-    },
-  ];
+  late List<Student> students;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize with provided data
+    students = initialStudentsData.map((data) => Student.fromMap(data)).toList();
+  }
+
+  void _addStudent() async {
+    final result = await Navigator.pushNamed(context, '/tambah-mahasiswa');
+    if (result != null && result is Student) {
+      setState(() {
+        students.add(result);
+      });
+    }
+  }
+
+  void _viewProfile(int index) async {
+    final result = await Navigator.pushNamed(
+      context,
+      '/profile',
+      arguments: {
+        'student': students[index],
+        'totalStudents': students.length,
+      },
+    );
+
+    if (result == true) {
+      setState(() {
+        students.removeAt(index);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,79 +69,69 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
           ),
         ),
       ),
-      // PERBAIKAN: Menggunakan ListView untuk tampilan list row sesuai permintaan
-      body: ListView.builder(
+      body: GridView.builder(
         padding: const EdgeInsets.all(16.0),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+          childAspectRatio: 0.8,
+        ),
         itemCount: students.length,
         itemBuilder: (context, index) {
           final student = students[index];
-          return Container(
-            margin: const EdgeInsets.only(bottom: 12),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.grey.shade200),
-            ),
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: () {
-                  // TODO: Navigasi ke Halaman 3 (Profile) bawa data student
-                },
-                borderRadius: BorderRadius.circular(12),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 30,
-                        backgroundColor: Colors.grey.shade100,
-                        // Menampilkan foto avatar dari URL
-                        backgroundImage: NetworkImage(student['avatar']!),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              student['name']!,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                                fontSize: 16,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              student['domisili']!,
-                              style: TextStyle(
-                                color: Colors.grey.shade500,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Icon(
-                        Icons.chevron_right,
-                        color: Colors.grey,
-                      ),
-                    ],
+          return GestureDetector(
+            onTap: () => _viewProfile(index),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: Colors.grey.shade200),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.02),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
                   ),
-                ),
+                ],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 40,
+                    backgroundImage: NetworkImage(student.avatar),
+                  ),
+                  const SizedBox(height: 12),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text(
+                      student.name,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    student.domisili,
+                    style: TextStyle(
+                      color: Colors.grey.shade600,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
               ),
             ),
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const TambahMahasiswaPage()),
-          );
-        },
+        onPressed: _addStudent,
         backgroundColor: Colors.black,
         shape: const CircleBorder(),
         elevation: 3,
