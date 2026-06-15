@@ -66,65 +66,66 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
           ),
         ),
       ),
-      // PERBAIKAN: Menggunakan GridView 2 kolom sesuai spesifikasi ujian
-      body: GridView.builder(
+      // PERBAIKAN: Menggunakan ListView untuk tampilan list row sesuai permintaan
+      body: ListView.builder(
         padding: const EdgeInsets.all(16.0),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // 2 Kolom
-          crossAxisSpacing: 16, // Jarak horizontal antar kartu
-          mainAxisSpacing: 16, // Jarak vertikal antar kartu
-          childAspectRatio: 0.85, // Mengatur proporsi tinggi dan lebar kartu
-        ),
         itemCount: students.length,
         itemBuilder: (context, index) {
           final student = students[index];
-          return Material(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            child: InkWell(
-              onTap: () {
-                // TODO: Navigasi ke Halaman 3 (Profile) bawa data student
-              },
-              borderRadius: BorderRadius.circular(16),
-              child: Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.grey.shade200),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 36,
-                      backgroundColor: Colors.grey.shade100,
-                      // Menampilkan foto avatar dari URL
-                      backgroundImage: NetworkImage(student['avatar']!),
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      student['name']!,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black87,
-                        fontSize: 15,
+          return Container(
+            margin: const EdgeInsets.only(bottom: 12),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.grey.shade200),
+            ),
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  // TODO: Navigasi ke Halaman 3 (Profile) bawa data student
+                },
+                borderRadius: BorderRadius.circular(12),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundColor: Colors.grey.shade100,
+                        // Menampilkan foto avatar dari URL
+                        backgroundImage: NetworkImage(student['avatar']!),
                       ),
-                      textAlign: TextAlign.center,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      student['domisili']!,
-                      style: TextStyle(
-                        color: Colors.grey.shade500,
-                        fontSize: 13,
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              student['name']!,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                                fontSize: 16,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              student['domisili']!,
+                              style: TextStyle(
+                                color: Colors.grey.shade500,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      textAlign: TextAlign.center,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
+                      const Icon(
+                        Icons.chevron_right,
+                        color: Colors.grey,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
