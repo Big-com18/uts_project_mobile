@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../tambah_mahasiswa/tambah_mahasiswa.dart';
 
 class ListMahasiswaPages extends StatefulWidget {
   const ListMahasiswaPages({super.key});
@@ -134,7 +135,10 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // TODO: Navigasi ke Halaman 2 (Tambah Mahasiswa)
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const TambahMahasiswaPage()),
+          );
         },
         backgroundColor: Colors.black,
         shape: const CircleBorder(),
