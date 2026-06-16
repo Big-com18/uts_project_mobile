@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 import '../models/student.dart';
+import '../theme/app_theme.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
-  static const Color _indigo = Color(0xFF6366F1);
-  static const Color _indigoLight = Color(0xFFEEF2FF);
-  static const Color _bgPage = Color(0xFFF8F9FB);
-
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic> args =
-    ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final Student student = args['student'] as Student;
     final int totalStudents = args['totalStudents'] as int;
 
     final bool canDelete = totalStudents > 3;
 
     return Scaffold(
-      backgroundColor: _bgPage,
       body: Column(
         children: [
           // ── Hero section ─────────────────────────────────────
@@ -39,24 +35,24 @@ class ProfilePage extends StatelessWidget {
                           student.name,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
-                            fontSize: 24,
+                            fontSize: 22,
                             fontWeight: FontWeight.w800,
-                            color: Colors.black87,
+                            color: AppTheme.textPrimary,
                           ),
                         ),
                         const SizedBox(height: 6),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.location_on_rounded,
-                                size: 14, color: _indigo),
+                            const Icon(Icons.location_on_rounded,
+                                size: 14, color: AppTheme.accent),
                             const SizedBox(width: 4),
                             Text(
                               student.domisili,
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey.shade500,
-                                fontWeight: FontWeight.w500,
+                              style: const TextStyle(
+                                fontSize: 13.5,
+                                color: AppTheme.textSecondary,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ],
@@ -72,8 +68,8 @@ class ProfilePage extends StatelessWidget {
                     icon: Icons.phone_rounded,
                     label: 'Nomor HP',
                     value: student.phone,
-                    iconBg: _indigoLight,
-                    iconColor: _indigo,
+                    iconBg: AppTheme.primary.withOpacity(0.06),
+                    iconColor: AppTheme.primary,
                   ),
 
                   const SizedBox(height: 12),
@@ -82,36 +78,36 @@ class ProfilePage extends StatelessWidget {
                     icon: Icons.home_rounded,
                     label: 'Domisili',
                     value: student.domisili,
-                    iconBg: const Color(0xFFF0FDF4),
-                    iconColor: const Color(0xFF22C55E),
+                    iconBg: AppTheme.accent.withOpacity(0.08),
+                    iconColor: AppTheme.accent,
                   ),
 
                   const SizedBox(height: 36),
 
-                  // Delete button
+                  // Delete button & Warning Banner
                   if (!canDelete) ...[
                     Container(
                       width: double.infinity,
-                      padding: const EdgeInsets.all(12),
-                      margin: const EdgeInsets.only(bottom: 12),
+                      padding: const EdgeInsets.all(14),
+                      margin: const EdgeInsets.only(bottom: 16),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFFFF7ED),
+                        color: const Color(0xFFFEF3C7), // soft amber
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                            color: const Color(0xFFFED7AA)),
+                            color: const Color(0xFFFDE68A), width: 1.0),
                       ),
-                      child: Row(
+                      child: const Row(
                         children: [
-                          const Icon(Icons.info_outline_rounded,
-                              size: 16, color: Color(0xFFF97316)),
-                          const SizedBox(width: 8),
+                          Icon(Icons.info_outline_rounded,
+                              size: 18, color: Color(0xFFB45309)),
+                          SizedBox(width: 10),
                           Expanded(
                             child: Text(
                               'Tidak dapat dihapus — daftar minimal 3 mahasiswa.',
                               style: TextStyle(
                                 fontSize: 12,
-                                color: Colors.orange.shade700,
-                                fontWeight: FontWeight.w500,
+                                color: Color(0xFFB45309),
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
                           ),
@@ -122,14 +118,14 @@ class ProfilePage extends StatelessWidget {
 
                   SizedBox(
                     width: double.infinity,
-                    height: 54,
+                    height: 52,
                     child: ElevatedButton.icon(
                       onPressed: canDelete
                           ? () => _confirmDelete(context)
                           : null,
                       icon: Icon(
                         Icons.delete_outline_rounded,
-                        size: 20,
+                        size: 18,
                         color: canDelete
                             ? Colors.white
                             : Colors.grey.shade400,
@@ -137,7 +133,7 @@ class ProfilePage extends StatelessWidget {
                       label: Text(
                         'Hapus Akun Ini',
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 14.5,
                           fontWeight: FontWeight.w700,
                           color: canDelete
                               ? Colors.white
@@ -145,10 +141,8 @@ class ProfilePage extends StatelessWidget {
                         ),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: canDelete
-                            ? const Color(0xFFEF4444)
-                            : Colors.grey.shade100,
-                        disabledBackgroundColor: Colors.grey.shade100,
+                        backgroundColor: const Color(0xFFDC2626), // crimson red
+                        disabledBackgroundColor: Colors.grey.shade200,
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14),
@@ -178,9 +172,9 @@ class ProfilePage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Handle
+              // Handle bar
               Container(
-                width: 40,
+                width: 36,
                 height: 4,
                 decoration: BoxDecoration(
                   color: Colors.grey.shade300,
@@ -191,25 +185,25 @@ class ProfilePage extends StatelessWidget {
               Container(
                 width: 56,
                 height: 56,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFEE2E2),
+                decoration: const BoxDecoration(
+                  color: Color(0xFFFEE2E2),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(Icons.delete_outline_rounded,
-                    color: Color(0xFFEF4444), size: 28),
+                    color: Color(0xFFDC2626), size: 26),
               ),
               const SizedBox(height: 16),
               const Text(
                 'Hapus Mahasiswa?',
                 style: TextStyle(
-                    fontSize: 18, fontWeight: FontWeight.w800),
+                    fontSize: 17, fontWeight: FontWeight.w800, color: AppTheme.textPrimary),
               ),
               const SizedBox(height: 8),
-              Text(
+              const Text(
                 'Data mahasiswa ini akan dihapus dari daftar dan tidak dapat dikembalikan.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 13, color: Colors.grey.shade500, height: 1.5),
+                    fontSize: 12.5, color: AppTheme.textSecondary, height: 1.4),
               ),
               const SizedBox(height: 24),
               Row(
@@ -219,15 +213,16 @@ class ProfilePage extends StatelessWidget {
                       onPressed: () => Navigator.pop(ctx),
                       style: OutlinedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
-                        side: BorderSide(color: Colors.grey.shade200),
+                        side: const BorderSide(color: AppTheme.border),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12)),
                       ),
                       child: const Text(
                         'Batal',
                         style: TextStyle(
-                            color: Colors.black87,
-                            fontWeight: FontWeight.w600),
+                            color: AppTheme.textPrimary,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 13.5),
                       ),
                     ),
                   ),
@@ -239,7 +234,7 @@ class ProfilePage extends StatelessWidget {
                         Navigator.pop(context, true);
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFEF4444),
+                        backgroundColor: const Color(0xFFDC2626),
                         foregroundColor: Colors.white,
                         elevation: 0,
                         padding: const EdgeInsets.symmetric(vertical: 14),
@@ -248,7 +243,9 @@ class ProfilePage extends StatelessWidget {
                       ),
                       child: const Text(
                         'Hapus',
-                        style: TextStyle(fontWeight: FontWeight.w700),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 13.5),
                       ),
                     ),
                   ),
@@ -266,16 +263,18 @@ class ProfilePage extends StatelessWidget {
 
 class _HeroSection extends StatelessWidget {
   final Student student;
-  static const Color _indigo = Color(0xFF6366F1);
 
   const _HeroSection({required this.student});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: Color(0xFFEEF2FF),
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(32)),
+      decoration: BoxDecoration(
+        color: AppTheme.primary.withOpacity(0.04),
+        borderRadius: const BorderRadius.vertical(bottom: Radius.circular(24)),
+        border: const Border(
+          bottom: BorderSide(color: AppTheme.border, width: 1),
+        ),
       ),
       child: SafeArea(
         bottom: false,
@@ -283,13 +282,11 @@ class _HeroSection extends StatelessWidget {
           children: [
             // App bar row
             Padding(
-              padding:
-              const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               child: Row(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.arrow_back_ios_new_rounded,
-                        color: Colors.black87, size: 20),
+                    icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 18),
                     onPressed: () => Navigator.pop(context),
                   ),
                   const Expanded(
@@ -297,9 +294,9 @@ class _HeroSection extends StatelessWidget {
                       'Profil Mahasiswa',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.black87,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 17,
+                        color: AppTheme.textPrimary,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 16,
                       ),
                     ),
                   ),
@@ -316,14 +313,14 @@ class _HeroSection extends StatelessWidget {
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: _indigo.withOpacity(0.2),
-                    blurRadius: 20,
+                    color: AppTheme.primary.withOpacity(0.08),
+                    blurRadius: 16,
                     offset: const Offset(0, 6),
                   ),
                 ],
               ),
               child: CircleAvatar(
-                radius: 52,
+                radius: 50,
                 backgroundImage: NetworkImage(student.avatar),
               ),
             ),
@@ -357,12 +354,13 @@ class _InfoCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppTheme.cardBg,
         borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppTheme.border, width: 1),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 12,
+            color: Colors.black.withOpacity(0.02),
+            blurRadius: 8,
             offset: const Offset(0, 2),
           ),
         ],
@@ -370,37 +368,39 @@ class _InfoCard extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 44,
-            height: 44,
+            width: 42,
+            height: 42,
             decoration: BoxDecoration(
               color: iconBg,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(icon, color: iconColor, size: 22),
+            child: Icon(icon, color: iconColor, size: 20),
           ),
           const SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: Colors.grey.shade400,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0.5,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  style: const TextStyle(
+                    fontSize: 10.5,
+                    color: AppTheme.textSecondary,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 0.3,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                value,
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black87,
+                const SizedBox(height: 2),
+                Text(
+                  value,
+                  style: const TextStyle(
+                    fontSize: 14.5,
+                    fontWeight: FontWeight.w700,
+                    color: AppTheme.textPrimary,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

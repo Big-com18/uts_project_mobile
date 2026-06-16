@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/student.dart';
 import '../data/app_data.dart';
+import '../theme/app_theme.dart';
 
 class ListMahasiswaPages extends StatefulWidget {
   const ListMahasiswaPages({super.key});
@@ -11,12 +12,6 @@ class ListMahasiswaPages extends StatefulWidget {
 
 class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
   late List<Student> students;
-
-  // Brand colors
-  static const Color _indigo = Color(0xFF6366F1);
-  static const Color _indigoLight = Color(0xFFEEF2FF);
-  static const Color _bgPage = Color(0xFFF8F9FB);
-  static const Color _cardBg = Colors.white;
 
   @override
   void initState() {
@@ -54,72 +49,97 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _bgPage,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // ── Header ──────────────────────────────────────────
             Padding(
-              padding:
-              const EdgeInsets.fromLTRB(20, 24, 20, 0),
+              padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Student',
                           style: TextStyle(
-                            fontSize: 30,
+                            fontSize: 28,
                             fontWeight: FontWeight.w800,
-                            color: Colors.black,
+                            color: AppTheme.textPrimary,
                             height: 1.1,
                           ),
                         ),
-                        Text(
-                          'Directory',
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w800,
-                            color: _indigo,
-                            height: 1.1,
-                          ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Directory',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w800,
+                                color: AppTheme.accent,
+                                height: 1.1,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            // Tiny indicator dot
+                            Container(
+                              width: 6,
+                              height: 6,
+                              decoration: const BoxDecoration(
+                                color: AppTheme.primary,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 6),
-                        Text(
-                          '${students.length} mahasiswa terdaftar',
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: Colors.grey.shade500,
-                            fontWeight: FontWeight.w500,
+                        // Soft pill count
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: AppTheme.primary.withOpacity(0.06),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Text(
+                            '${students.length} mahasiswa terdaftar',
+                            style: const TextStyle(
+                              fontSize: 11,
+                              color: AppTheme.primary,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  // Avatar stack badge
+                  // S1 badge
                   Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 12, vertical: 8),
                     decoration: BoxDecoration(
-                      color: _indigoLight,
+                      color: AppTheme.primary.withOpacity(0.06),
                       borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: AppTheme.primary.withOpacity(0.1),
+                        width: 1,
+                      ),
                     ),
-                    child: Row(
+                    child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(Icons.school_rounded,
-                            color: _indigo, size: 18),
-                        const SizedBox(width: 6),
+                            color: AppTheme.primary, size: 16),
+                        SizedBox(width: 6),
                         Text(
                           'S1',
                           style: TextStyle(
-                            color: _indigo,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 13,
+                            color: AppTheme.primary,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 12,
                           ),
                         ),
                       ],
@@ -136,22 +156,22 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
               child: students.isEmpty
                   ? _buildEmpty()
                   : GridView.builder(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
-                gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 14,
-                  mainAxisSpacing: 14,
-                  childAspectRatio: 0.78,
-                ),
-                itemCount: students.length,
-                itemBuilder: (context, index) {
-                  return _StudentCard(
-                    student: students[index],
-                    onTap: () => _viewProfile(index),
-                  );
-                },
-              ),
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 12,
+                        mainAxisSpacing: 12,
+                        childAspectRatio: 0.78,
+                      ),
+                      itemCount: students.length,
+                      itemBuilder: (context, index) {
+                        return _StudentCard(
+                          student: students[index],
+                          onTap: () => _viewProfile(index),
+                        );
+                      },
+                    ),
             ),
           ],
         ),
@@ -169,25 +189,24 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
             width: 80,
             height: 80,
             decoration: BoxDecoration(
-              color: _indigoLight,
+              color: AppTheme.primary.withOpacity(0.06),
               shape: BoxShape.circle,
             ),
-            child: Icon(Icons.people_outline_rounded,
-                color: _indigo, size: 40),
+            child: const Icon(Icons.people_outline_rounded,
+                color: AppTheme.primary, size: 36),
           ),
           const SizedBox(height: 16),
           const Text(
             'Belum ada mahasiswa',
             style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: Colors.black87),
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+                color: AppTheme.textPrimary),
           ),
           const SizedBox(height: 6),
           Text(
-            'Tap + untuk menambahkan mahasiswa baru',
-            style:
-            TextStyle(fontSize: 13, color: Colors.grey.shade500),
+            'Tap tombol + untuk menambahkan mahasiswa baru',
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
           ),
         ],
       ),
@@ -200,105 +219,99 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
 class _StudentCard extends StatelessWidget {
   final Student student;
   final VoidCallback onTap;
-  static const Color _indigo = Color(0xFF6366F1);
 
   const _StudentCard({required this.student, required this.onTap});
 
-  // Pick a subtle accent color based on first letter
   Color _accentFor(String name) {
-    final colors = [
-      const Color(0xFFEEF2FF), // indigo tint
-      const Color(0xFFF0FDF4), // green tint
-      const Color(0xFFFFF7ED), // orange tint
-      const Color(0xFFFDF4FF), // purple tint
-      const Color(0xFFF0F9FF), // sky tint
-    ];
-    if (name.isEmpty) return colors[0];
-    return colors[name.codeUnitAt(0) % colors.length];
+    if (name.isEmpty) return AppTheme.cardAccents[0];
+    return AppTheme.cardAccents[
+        name.codeUnitAt(0) % AppTheme.cardAccents.length];
   }
 
   @override
   Widget build(BuildContext context) {
     final accent = _accentFor(student.name);
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 120),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 16,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Column(
-          children: [
-            // Top colored band with avatar
-            Container(
-              height: 110,
-              decoration: BoxDecoration(
-                color: accent,
-                borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(20)),
-              ),
-              child: Center(
-                child: Container(
-                  padding: const EdgeInsets.all(3),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.08),
-                        blurRadius: 12,
-                        offset: const Offset(0, 3),
-                      )
-                    ],
-                  ),
-                  child: CircleAvatar(
-                    radius: 38,
-                    backgroundImage: NetworkImage(student.avatar),
-                  ),
-                ),
-              ),
-            ),
-            // Info section
-            Expanded(
-              child: Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      student.name,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14,
-                        color: Colors.black87,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+    return Container(
+      decoration: BoxDecoration(
+        color: AppTheme.cardBg,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppTheme.border, width: 1),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.02),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(15),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onTap,
+            splashColor: AppTheme.primary.withOpacity(0.06),
+            highlightColor: AppTheme.primary.withOpacity(0.02),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Center dynamic avatar container
+                  Container(
+                    width: 78,
+                    height: 78,
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: accent.withOpacity(0.35),
                     ),
-                    const SizedBox(height: 4),
-                    Row(
+                    child: Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                      ),
+                      child: CircleAvatar(
+                        radius: 32,
+                        backgroundImage: NetworkImage(student.avatar),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 14),
+                  Text(
+                    student.name,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 13.5,
+                      color: AppTheme.textPrimary,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: AppTheme.primary.withOpacity(0.04),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.location_on_rounded,
-                            size: 11, color: _indigo),
-                        const SizedBox(width: 2),
+                        const Icon(Icons.location_on_rounded,
+                            size: 11, color: AppTheme.accent),
+                        const SizedBox(width: 3),
                         Flexible(
                           child: Text(
                             student.domisili,
-                            style: TextStyle(
-                              color: Colors.grey.shade500,
-                              fontSize: 11,
-                              fontWeight: FontWeight.w500,
+                            style: const TextStyle(
+                              color: AppTheme.textSecondary,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -306,11 +319,11 @@ class _StudentCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -321,7 +334,6 @@ class _StudentCard extends StatelessWidget {
 
 class _AddFab extends StatelessWidget {
   final VoidCallback onPressed;
-  static const Color _indigo = Color(0xFF6366F1);
 
   const _AddFab({required this.onPressed});
 
@@ -329,16 +341,17 @@ class _AddFab extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
       onPressed: onPressed,
-      backgroundColor: _indigo,
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      icon: const Icon(Icons.person_add_rounded, color: Colors.white, size: 20),
+      backgroundColor: AppTheme.primary,
+      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      icon: const Icon(Icons.add_rounded, color: Colors.white, size: 20),
       label: const Text(
         'Tambah',
         style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w700,
-          fontSize: 14,
+          fontSize: 13.5,
+          letterSpacing: 0.3,
         ),
       ),
     );
