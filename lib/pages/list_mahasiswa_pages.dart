@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../models/student.dart';
+
 import '../data/app_data.dart';
+import '../models/student.dart';
 import '../theme/app_theme.dart';
 
 class ListMahasiswaPages extends StatefulWidget {
@@ -242,7 +243,7 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
               shape: BoxShape.circle,
             ),
             child: const Icon(
-              Icons.people_outline_rounded,
+              Icons.people_rounded,
               color: AppTheme.primary,
               size: 36,
             ),
