@@ -23,14 +23,14 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
   void _showNotification({
     required String message,
     required IconData icon,
-    required Color iconColor,
+    required Color backgroundColor,
   }) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Row(
           children: [
-            Icon(icon, color: iconColor, size: 20),
+            Icon(icon, color: Colors.white, size: 20),
             const SizedBox(width: 12),
             Expanded(
               child: Text(
@@ -45,7 +45,7 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
           ],
         ),
         behavior: SnackBarBehavior.floating,
-        backgroundColor: AppTheme.primary,
+        backgroundColor: backgroundColor,
         elevation: 3,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
@@ -64,8 +64,8 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
       });
       _showNotification(
         message: '${result.name} berhasil ditambahkan',
-        icon: Icons.check_circle_rounded,
-        iconColor: AppTheme.accent,
+        icon: Icons.check_circle_outline_rounded,
+        backgroundColor: const Color(0xFF16A34A), // Success Green
       );
     }
   }
@@ -88,7 +88,7 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
       _showNotification(
         message: '$studentName telah dihapus dari daftar',
         icon: Icons.delete_outline_rounded,
-        iconColor: const Color(0xFFEF4444),
+        backgroundColor: const Color(0xFFDC2626), // Destructive Red
       );
     }
   }
