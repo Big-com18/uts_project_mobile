@@ -20,16 +20,58 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
         initialStudentsData.map((data) => Student.fromMap(data)).toList();
   }
 
+  void _showNotification({
+    required String message,
+    required IconData icon,
+    required Color iconColor,
+  }) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Icon(icon, color: iconColor, size: 20),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ],
+        ),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: AppTheme.primary,
+        elevation: 3,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        margin: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  }
+
   void _addStudent() async {
     final result = await Navigator.pushNamed(context, '/tambah-mahasiswa');
     if (result != null && result is Student) {
       setState(() {
         students.add(result);
       });
+      _showNotification(
+        message: '${result.name} berhasil ditambahkan',
+        icon: Icons.check_circle_rounded,
+        iconColor: AppTheme.accent,
+      );
     }
   }
 
   void _viewProfile(int index) async {
+    final studentName = students[index].name;
     final result = await Navigator.pushNamed(
       context,
       '/profile',
@@ -43,6 +85,11 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
       setState(() {
         students.removeAt(index);
       });
+      _showNotification(
+        message: '$studentName telah dihapus dari daftar',
+        icon: Icons.delete_outline_rounded,
+        iconColor: const Color(0xFFEF4444),
+      );
     }
   }
 
