@@ -1,7 +1,9 @@
-import 'package:flutter/material.dart';
 import 'dart:math';
-import '../models/student.dart';
+
+import 'package:flutter/material.dart';
+
 import '../data/app_data.dart';
+import '../models/student.dart';
 import '../theme/app_theme.dart';
 
 class TambahMahasiswaPage extends StatefulWidget {
@@ -39,8 +41,9 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
           SnackBar(
             content: const Text('Silakan pilih domisili'),
             behavior: SnackBarBehavior.floating,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
             backgroundColor: Colors.red.shade400,
           ),
         );
@@ -86,68 +89,57 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                     children: [
                       // Avatar Card
                       Center(
-                        child: Container(
-                          padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            color: AppTheme.cardBg,
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: AppTheme.border, width: 1),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.02),
-                                blurRadius: 12,
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(4),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: AppTheme.primary.withOpacity(0.08),
-                                ),
-                                child: Container(
-                                  padding: const EdgeInsets.all(2),
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white,
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppTheme.primary.withOpacity(0.08),
+                                    blurRadius: 16,
+                                    offset: const Offset(0, 6),
                                   ),
-                                  child: CircleAvatar(
-                                    radius: 42,
-                                    backgroundImage:
-                                        NetworkImage(_randomAvatar),
-                                  ),
-                                ),
+                                ],
                               ),
-                              const SizedBox(height: 12),
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 4),
-                                decoration: BoxDecoration(
-                                  color: AppTheme.primary.withOpacity(0.06),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: const Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(Icons.auto_awesome_rounded,
-                                        size: 11, color: AppTheme.primary),
-                                    SizedBox(width: 5),
-                                    Text(
-                                      'Avatar diacak otomatis',
-                                      style: TextStyle(
-                                        fontSize: 10.5,
-                                        color: AppTheme.primary,
-                                        fontWeight: FontWeight.w700,
-                                      ),
+                              child: CircleAvatar(
+                                radius: 46,
+                                backgroundImage: NetworkImage(_randomAvatar),
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppTheme.primary.withOpacity(0.06),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: const Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.shuffle_rounded,
+                                    size: 11,
+                                    color: AppTheme.primary,
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    'Avatar diacak otomatis',
+                                    style: TextStyle(
+                                      fontSize: 10.5,
+                                      color: AppTheme.primary,
+                                      fontWeight: FontWeight.w700,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
 
@@ -159,7 +151,7 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                       _buildTextField(
                         controller: _nameController,
                         hint: 'Masukkan nama lengkap',
-                        prefixIcon: Icons.person_outline_rounded,
+                        prefixIcon: Icons.person_rounded,
                         validator: (v) => (v == null || v.trim().isEmpty)
                             ? 'Nama wajib diisi'
                             : null,
@@ -173,13 +165,16 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                       DropdownButtonFormField<String>(
                         value: _selectedDomisili,
                         decoration: _inputDecoration(
-                            hint: 'Pilih kota / wilayah',
-                            prefixIcon: Icons.location_on_outlined),
+                          hint: 'Pilih kota / wilayah',
+                          prefixIcon: Icons.location_on_rounded,
+                        ),
                         items: domisiliList.map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value,
-                                style: const TextStyle(fontSize: 14)),
+                            child: Text(
+                              value,
+                              style: const TextStyle(fontSize: 14),
+                            ),
                           );
                         }).toList(),
                         onChanged: (newValue) {
@@ -189,8 +184,11 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                         },
                         validator: (v) =>
                             v == null ? 'Domisili wajib dipilih' : null,
-                        icon: const Icon(Icons.keyboard_arrow_down_rounded,
-                            color: AppTheme.textSecondary, size: 20),
+                        icon: const Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          color: AppTheme.textSecondary,
+                          size: 20,
+                        ),
                         dropdownColor: Colors.white,
                         menuMaxHeight: 300,
                         style: const TextStyle(
@@ -208,7 +206,7 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                       _buildTextField(
                         controller: _phoneController,
                         hint: 'Contoh: 081234567890',
-                        prefixIcon: Icons.phone_outlined,
+                        prefixIcon: Icons.phone_rounded,
                         keyboardType: TextInputType.number,
                         validator: (v) {
                           final value = v?.trim() ?? '';
@@ -349,13 +347,18 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
     );
   }
 
-  InputDecoration _inputDecoration(
-      {required String hint, required IconData prefixIcon}) {
+  InputDecoration _inputDecoration({
+    required String hint,
+    required IconData prefixIcon,
+  }) {
     return InputDecoration(
       hintText: hint,
       hintStyle: const TextStyle(color: AppTheme.textSecondary, fontSize: 13.5),
-      prefixIcon:
-          Icon(prefixIcon, color: AppTheme.textSecondary.withOpacity(0.7), size: 18),
+      prefixIcon: Icon(
+        prefixIcon,
+        color: AppTheme.textSecondary.withOpacity(0.7),
+        size: 18,
+      ),
       filled: true,
       fillColor: Colors.white,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
@@ -397,7 +400,11 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
-      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: AppTheme.textPrimary),
+      style: const TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        color: AppTheme.textPrimary,
+      ),
       decoration: _inputDecoration(hint: hint, prefixIcon: prefixIcon),
       validator: validator,
     );

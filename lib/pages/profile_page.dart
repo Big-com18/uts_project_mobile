@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../models/student.dart';
 import '../theme/app_theme.dart';
 
@@ -40,23 +41,23 @@ class ProfilePage extends StatelessWidget {
                             color: AppTheme.textPrimary,
                           ),
                         ),
-                        const SizedBox(height: 6),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(Icons.location_on_rounded,
-                                size: 14, color: AppTheme.accent),
-                            const SizedBox(width: 4),
-                            Text(
-                              student.domisili,
-                              style: const TextStyle(
-                                fontSize: 13.5,
-                                color: AppTheme.textSecondary,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
+                        // const SizedBox(height: 6),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     const Icon(Icons.location_on_rounded,
+                        //         size: 14, color: AppTheme.accent),
+                        //     const SizedBox(width: 4),
+                        //     Text(
+                        //       student.domisili,
+                        //       style: const TextStyle(
+                        //         fontSize: 13.5,
+                        //         color: AppTheme.textSecondary,
+                        //         fontWeight: FontWeight.w600,
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),
@@ -75,7 +76,7 @@ class ProfilePage extends StatelessWidget {
                   const SizedBox(height: 12),
 
                   _InfoCard(
-                    icon: Icons.home_rounded,
+                    icon: Icons.location_on_rounded,
                     label: 'Domisili',
                     value: student.domisili,
                     iconBg: AppTheme.accent.withOpacity(0.08),
@@ -94,12 +95,17 @@ class ProfilePage extends StatelessWidget {
                         color: const Color(0xFFFEF3C7), // soft amber
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                            color: const Color(0xFFFDE68A), width: 1.0),
+                          color: const Color(0xFFFDE68A),
+                          width: 1.0,
+                        ),
                       ),
                       child: const Row(
                         children: [
-                          Icon(Icons.info_outline_rounded,
-                              size: 18, color: Color(0xFFB45309)),
+                          Icon(
+                            Icons.info_outline_rounded,
+                            size: 18,
+                            color: Color(0xFFB45309),
+                          ),
                           SizedBox(width: 10),
                           Expanded(
                             child: Text(
@@ -124,11 +130,9 @@ class ProfilePage extends StatelessWidget {
                           ? () => _confirmDelete(context)
                           : null,
                       icon: Icon(
-                        Icons.delete_outline_rounded,
+                        Icons.delete_rounded,
                         size: 18,
-                        color: canDelete
-                            ? Colors.white
-                            : Colors.grey.shade400,
+                        color: canDelete ? Colors.white : Colors.grey.shade400,
                       ),
                       label: Text(
                         'Hapus Akun Ini',
@@ -189,21 +193,30 @@ class ProfilePage extends StatelessWidget {
                   color: Color(0xFFFEE2E2),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.delete_outline_rounded,
-                    color: Color(0xFFDC2626), size: 26),
+                child: const Icon(
+                  Icons.delete_rounded,
+                  color: Color(0xFFDC2626),
+                  size: 26,
+                ),
               ),
               const SizedBox(height: 16),
               const Text(
                 'Hapus Mahasiswa?',
                 style: TextStyle(
-                    fontSize: 17, fontWeight: FontWeight.w800, color: AppTheme.textPrimary),
+                  fontSize: 17,
+                  fontWeight: FontWeight.w800,
+                  color: AppTheme.textPrimary,
+                ),
               ),
               const SizedBox(height: 8),
               const Text(
                 'Data mahasiswa ini akan dihapus dari daftar dan tidak dapat dikembalikan.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 12.5, color: AppTheme.textSecondary, height: 1.4),
+                  fontSize: 12.5,
+                  color: AppTheme.textSecondary,
+                  height: 1.4,
+                ),
               ),
               const SizedBox(height: 24),
               Row(
@@ -215,14 +228,16 @@ class ProfilePage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         side: const BorderSide(color: AppTheme.border),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
                       child: const Text(
                         'Batal',
                         style: TextStyle(
-                            color: AppTheme.textPrimary,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 13.5),
+                          color: AppTheme.textPrimary,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 13.5,
+                        ),
                       ),
                     ),
                   ),
@@ -239,13 +254,15 @@ class ProfilePage extends StatelessWidget {
                         elevation: 0,
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
                       child: const Text(
                         'Hapus',
                         style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 13.5),
+                          fontWeight: FontWeight.w700,
+                          fontSize: 13.5,
+                        ),
                       ),
                     ),
                   ),
@@ -286,7 +303,10 @@ class _HeroSection extends StatelessWidget {
               child: Row(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 18),
+                    icon: const Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      size: 18,
+                    ),
                     onPressed: () => Navigator.pop(context),
                   ),
                   const Expanded(

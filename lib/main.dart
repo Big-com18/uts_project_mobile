@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'theme/app_theme.dart';
+
 import 'pages/list_mahasiswa_pages.dart';
-import 'pages/tambah_mahasiswa.dart';
 import 'pages/profile_page.dart';
+import 'pages/tambah_mahasiswa.dart';
+import 'theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,10 +42,7 @@ class MyApp extends StatelessWidget {
             fontSize: 18,
             fontWeight: FontWeight.w700,
           ),
-          iconTheme: const IconThemeData(
-            color: AppTheme.textPrimary,
-            size: 20,
-          ),
+          iconTheme: const IconThemeData(color: AppTheme.textPrimary, size: 20),
         ),
       ),
       initialRoute: '/',
