@@ -133,8 +133,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
                 dropdownColor: Colors.white,
                 borderRadius: BorderRadius.circular(16), 
                 elevation: 3, 
-                // KUNCI RAHASIANYA DI SINI:
-                menuMaxHeight: 300, // Membatasi tinggi maksimal menu agar rapi dan bisa di-scroll
+                menuMaxHeight: 300, 
                 items: domisiliList.map((String option) {
                   return DropdownMenuItem<String>(
                     value: option,
@@ -158,7 +157,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
                 decoration: _inputDecoration('Contoh: 081234567890').copyWith(counterText: ""),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) return 'Nomor HP wajib diisi';
-                  if (!value.startsWith('0')) return 'Harus diawali angka 0';
+                  if (!value.startsWith('08')) return 'Harus diawali angka 08';
                   if (value.length < 10) return 'Minimal 10 angka';
                   return null;
                 },
