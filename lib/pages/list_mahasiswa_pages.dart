@@ -17,8 +17,9 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
   @override
   void initState() {
     super.initState();
-    students =
-        initialStudentsData.map((data) => Student.fromMap(data)).toList();
+    students = initialStudentsData
+        .map((data) => Student.fromMap(data))
+        .toList();
   }
 
   @override
@@ -72,10 +73,7 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
     final result = await Navigator.pushNamed(
       context,
       '/profile',
-      arguments: {
-        'student': students[index],
-        'totalStudents': students.length,
-      },
+      arguments: {'student': students[index], 'totalStudents': students.length},
     );
 
     if (result == true) {
@@ -143,7 +141,9 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
                         // Soft pill count
                         Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 4),
+                            horizontal: 10,
+                            vertical: 4,
+                          ),
                           decoration: BoxDecoration(
                             color: AppTheme.primary.withOpacity(0.06),
                             borderRadius: BorderRadius.circular(20),
@@ -163,7 +163,9 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
                   // S1 badge
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 8),
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       color: AppTheme.primary.withOpacity(0.06),
                       borderRadius: BorderRadius.circular(12),
@@ -175,8 +177,11 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
                     child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.school_rounded,
-                            color: AppTheme.primary, size: 16),
+                        Icon(
+                          Icons.school_rounded,
+                          color: AppTheme.primary,
+                          size: 16,
+                        ),
                         SizedBox(width: 6),
                         Text(
                           'S1',
@@ -203,11 +208,11 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
                       padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 12,
-                        mainAxisSpacing: 12,
-                        childAspectRatio: 0.78,
-                      ),
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 12,
+                            mainAxisSpacing: 12,
+                            childAspectRatio: 0.78,
+                          ),
                       itemCount: students.length,
                       itemBuilder: (context, index) {
                         return _StudentCard(
@@ -236,16 +241,20 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
               color: AppTheme.primary.withOpacity(0.06),
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.people_outline_rounded,
-                color: AppTheme.primary, size: 36),
+            child: const Icon(
+              Icons.people_outline_rounded,
+              color: AppTheme.primary,
+              size: 36,
+            ),
           ),
           const SizedBox(height: 16),
           const Text(
             'Belum ada mahasiswa',
             style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w700,
-                color: AppTheme.textPrimary),
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+              color: AppTheme.textPrimary,
+            ),
           ),
           const SizedBox(height: 6),
           Text(
@@ -268,8 +277,8 @@ class _StudentCard extends StatelessWidget {
 
   Color _accentFor(String name) {
     if (name.isEmpty) return AppTheme.cardAccents[0];
-    return AppTheme.cardAccents[
-        name.codeUnitAt(0) % AppTheme.cardAccents.length];
+    return AppTheme.cardAccents[name.codeUnitAt(0) %
+        AppTheme.cardAccents.length];
   }
 
   @override
@@ -297,7 +306,10 @@ class _StudentCard extends StatelessWidget {
             splashColor: AppTheme.primary.withOpacity(0.06),
             highlightColor: AppTheme.primary.withOpacity(0.02),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12.0,
+                vertical: 16.0,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -337,7 +349,9 @@ class _StudentCard extends StatelessWidget {
                   const SizedBox(height: 8),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 4),
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: AppTheme.primary.withOpacity(0.04),
                       borderRadius: BorderRadius.circular(8),
@@ -346,8 +360,11 @@ class _StudentCard extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.location_on_rounded,
-                            size: 11, color: AppTheme.accent),
+                        const Icon(
+                          Icons.location_on_rounded,
+                          size: 11,
+                          color: AppTheme.accent,
+                        ),
                         const SizedBox(width: 3),
                         Flexible(
                           child: Text(
@@ -435,20 +452,16 @@ class _AnimatedNotificationState extends State<_AnimatedNotification>
       duration: const Duration(milliseconds: 450),
     );
 
-    // Springy easeOutBack bounce animation
-    _yTranslation = Tween<double>(begin: 80.0, end: 0.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeOutBack,
-      ),
-    );
+    // Springy easeOutBack slide-down animation
+    _yTranslation = Tween<double>(
+      begin: -100.0,
+      end: 0.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutBack));
 
-    _opacity = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeOut,
-      ),
-    );
+    _opacity = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
     _controller.forward();
 
@@ -456,12 +469,14 @@ class _AnimatedNotificationState extends State<_AnimatedNotification>
     Future.delayed(const Duration(milliseconds: 2600), () {
       if (mounted) {
         _controller
-            .animateTo(0.0,
-                duration: const Duration(milliseconds: 250),
-                curve: Curves.easeIn)
+            .animateTo(
+              0.0,
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.easeIn,
+            )
             .then((_) {
-          widget.onDismissed();
-        });
+              widget.onDismissed();
+            });
       }
     });
   }
@@ -478,13 +493,10 @@ class _AnimatedNotificationState extends State<_AnimatedNotification>
       animation: _controller,
       builder: (context, child) {
         return Positioned(
-          bottom: 40 + _yTranslation.value,
+          top: MediaQuery.of(context).padding.top + 16 + _yTranslation.value,
           left: 16,
           right: 16,
-          child: Opacity(
-            opacity: _opacity.value,
-            child: child,
-          ),
+          child: Opacity(opacity: _opacity.value, child: child),
         );
       },
       child: Material(
