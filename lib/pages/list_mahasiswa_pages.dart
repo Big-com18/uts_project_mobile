@@ -12,6 +12,7 @@ class ListMahasiswaPages extends StatefulWidget {
 
 class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
   late List<Student> students;
+  OverlayEntry? _notificationEntry;
 
   @override
   void initState() {
@@ -20,40 +21,36 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
         initialStudentsData.map((data) => Student.fromMap(data)).toList();
   }
 
+  @override
+  void dispose() {
+    _notificationEntry?.remove();
+    _notificationEntry = null;
+    super.dispose();
+  }
+
   void _showNotification({
     required String message,
     required IconData icon,
     required Color backgroundColor,
   }) {
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            Icon(icon, color: Colors.white, size: 20),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                message,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ],
-        ),
-        behavior: SnackBarBehavior.floating,
+    if (_notificationEntry != null) {
+      _notificationEntry!.remove();
+      _notificationEntry = null;
+    }
+
+    _notificationEntry = OverlayEntry(
+      builder: (context) => _AnimatedNotification(
+        message: message,
+        icon: icon,
         backgroundColor: backgroundColor,
-        elevation: 3,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        margin: const EdgeInsets.fromLTRB(16, 0, 16, 20),
-        duration: const Duration(seconds: 3),
+        onDismissed: () {
+          _notificationEntry?.remove();
+          _notificationEntry = null;
+        },
       ),
     );
+
+    Overlay.of(context).insert(_notificationEntry!);
   }
 
   void _addStudent() async {
@@ -399,6 +396,128 @@ class _AddFab extends StatelessWidget {
           fontWeight: FontWeight.w700,
           fontSize: 13.5,
           letterSpacing: 0.3,
+        ),
+      ),
+    );
+  }
+}
+
+// ── CUSTOM ANIMATED NOTIFICATION OVERLAY ─────────────────────
+
+class _AnimatedNotification extends StatefulWidget {
+  final String message;
+  final IconData icon;
+  final Color backgroundColor;
+  final VoidCallback onDismissed;
+
+  const _AnimatedNotification({
+    required this.message,
+    required this.icon,
+    required this.backgroundColor,
+    required this.onDismissed,
+  });
+
+  @override
+  State<_AnimatedNotification> createState() => _AnimatedNotificationState();
+}
+
+class _AnimatedNotificationState extends State<_AnimatedNotification>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _yTranslation;
+  late Animation<double> _opacity;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 450),
+    );
+
+    // Springy easeOutBack bounce animation
+    _yTranslation = Tween<double>(begin: 80.0, end: 0.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeOutBack,
+      ),
+    );
+
+    _opacity = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeOut,
+      ),
+    );
+
+    _controller.forward();
+
+    // Auto dismiss after 2.6 seconds
+    Future.delayed(const Duration(milliseconds: 2600), () {
+      if (mounted) {
+        _controller
+            .animateTo(0.0,
+                duration: const Duration(milliseconds: 250),
+                curve: Curves.easeIn)
+            .then((_) {
+          widget.onDismissed();
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return Positioned(
+          bottom: 40 + _yTranslation.value,
+          left: 16,
+          right: 16,
+          child: Opacity(
+            opacity: _opacity.value,
+            child: child,
+          ),
+        );
+      },
+      child: Material(
+        color: Colors.transparent,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          decoration: BoxDecoration(
+            color: widget.backgroundColor,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: widget.backgroundColor.withOpacity(0.35),
+                blurRadius: 16,
+                offset: const Offset(0, 6),
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              Icon(widget.icon, color: Colors.white, size: 20),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  widget.message,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
