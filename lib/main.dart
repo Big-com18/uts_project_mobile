@@ -1,7 +1,8 @@
+// lib/main.dart
 import 'package:flutter/material.dart';
-import 'package:uts_project_mobile/pages/list_mahasiswa_pages.dart';
-import 'package:uts_project_mobile/pages/tambah_mahasiswa.dart';
-import 'package:uts_project_mobile/pages/hapus_mahasiswa.dart';
+import 'package:uts_project_mobile/pages/home_page.dart';
+import 'package:uts_project_mobile/pages/add_student_page.dart';
+import 'package:uts_project_mobile/pages/delete_student_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,13 +17,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Student Directory',
       theme: ThemeData(
-        fontFamily: 'Inter', 
+        fontFamily: 'Inter',
+        scaffoldBackgroundColor: Colors.white,
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const ListMahasiswaPages(),
-        '/tambah-mahasiswa': (context) => const TambahMahasiswaPage(),
-        '/hapus-mahasiswa': (context) => const HapusMahasiswaPage(),
+        '/': (context) => const HomePage(),
+        '/add': (context) => const AddStudentPage(),
+        '/delete': (context) => const DeleteStudentPage(),
       },
     );
   }
