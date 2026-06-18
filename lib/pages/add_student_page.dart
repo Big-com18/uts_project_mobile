@@ -260,14 +260,14 @@ class _AddStudentPageState extends State<AddStudentPage> {
                         hint: 'Contoh: 081234567890',
                         prefixIcon: Icons.phone_rounded,
                         keyboardType: TextInputType.phone,
-                        maxLength: 12,
+                        maxLength: 13,
                         validator: (v) {
                           final value = v?.trim() ?? '';
                           if (value.isEmpty) {
                             return 'Nomor HP wajib diisi';
                           }
-                          if (value.length != 12) {
-                            return 'Nomor HP harus tepat 12 angka';
+                          if (value.length < 12) {
+                            return 'Nomor HP harus minimal 12 angka';
                           }
                           if (!value.startsWith('08')) {
                             return 'Nomor HP harus diawali dengan 08';
