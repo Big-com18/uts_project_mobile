@@ -168,12 +168,45 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                           hint: 'Pilih kota / wilayah',
                           prefixIcon: Icons.location_on_rounded,
                         ),
+                        borderRadius: BorderRadius.circular(12),
+                        elevation: 4,
                         items: domisiliList.map((String value) {
+                          final isSelected = value == _selectedDomisili;
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(
-                              value,
-                              style: const TextStyle(fontSize: 14),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 6),
+                              decoration: BoxDecoration(
+                                color: isSelected
+                                    ? AppTheme.primary.withOpacity(0.06)
+                                    : Colors.transparent,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      value,
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: isSelected
+                                            ? FontWeight.w700
+                                            : FontWeight.w500,
+                                        color: isSelected
+                                            ? AppTheme.primary
+                                            : AppTheme.textPrimary,
+                                      ),
+                                    ),
+                                  ),
+                                  if (isSelected)
+                                    const Icon(
+                                      Icons.check_rounded,
+                                      color: AppTheme.accent,
+                                      size: 16,
+                                    ),
+                                ],
+                              ),
                             ),
                           );
                         }).toList(),
