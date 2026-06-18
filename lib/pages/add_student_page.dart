@@ -6,14 +6,14 @@ import '../data/app_data.dart';
 import '../models/student.dart';
 import '../theme/app_theme.dart';
 
-class TambahMahasiswaPage extends StatefulWidget {
-  const TambahMahasiswaPage({super.key});
+class AddStudentPage extends StatefulWidget {
+  const AddStudentPage({super.key});
 
   @override
-  State<TambahMahasiswaPage> createState() => _TambahMahasiswaPageState();
+  State<AddStudentPage> createState() => _AddStudentPageState();
 }
 
-class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
+class _AddStudentPageState extends State<AddStudentPage> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
@@ -170,41 +170,60 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                         ),
                         borderRadius: BorderRadius.circular(12),
                         elevation: 4,
+                        selectedItemBuilder: (BuildContext context) {
+                          return domisiliList.map((String value) {
+                            return Text(
+                              value,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: AppTheme.textPrimary,
+                              ),
+                            );
+                          }).toList();
+                        },
                         items: domisiliList.map((String value) {
                           final isSelected = value == _selectedDomisili;
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Container(
+                              width: double.infinity,
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 6),
+                                horizontal: 10,
+                                vertical: 6,
+                              ),
                               decoration: BoxDecoration(
                                 color: isSelected
-                                    ? AppTheme.primary.withOpacity(0.06)
+                                    ? Colors.transparent
                                     : Colors.transparent,
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Expanded(
-                                    child: Text(
-                                      value,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: isSelected
-                                            ? FontWeight.w700
-                                            : FontWeight.w500,
-                                        color: isSelected
-                                            ? AppTheme.primary
-                                            : AppTheme.textPrimary,
-                                      ),
+                                  Text(
+                                    value,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: isSelected
+                                          ? FontWeight.w700
+                                          : FontWeight.w500,
+                                      color: isSelected
+                                          ? AppTheme.primary
+                                          : AppTheme.textPrimary,
                                     ),
                                   ),
-                                  if (isSelected)
-                                    const Icon(
+                                  if (isSelected) ...[
+                                    const SizedBox(width: 8),
+                                    Icon(
                                       Icons.check_rounded,
                                       color: AppTheme.accent,
                                       size: 16,
+                                      fontWeight: FontWeight.w800,
                                     ),
+                                  ],
                                 ],
                               ),
                             ),
@@ -240,7 +259,8 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                         controller: _phoneController,
                         hint: 'Contoh: 081234567890',
                         prefixIcon: Icons.phone_rounded,
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.phone,
+                        maxLength: 12,
                         validator: (v) {
                           final value = v?.trim() ?? '';
                           if (value.isEmpty) {
@@ -428,11 +448,13 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
     required String hint,
     required IconData prefixIcon,
     TextInputType keyboardType = TextInputType.text,
+    int? maxLength,
     String? Function(String?)? validator,
   }) {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
+      maxLength: maxLength,
       style: const TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w500,

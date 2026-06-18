@@ -4,14 +4,14 @@ import '../data/app_data.dart';
 import '../models/student.dart';
 import '../theme/app_theme.dart';
 
-class ListMahasiswaPages extends StatefulWidget {
-  const ListMahasiswaPages({super.key});
+class ListStudentPage extends StatefulWidget {
+  const ListStudentPage({super.key});
 
   @override
-  State<ListMahasiswaPages> createState() => _ListMahasiswaPagesState();
+  State<ListStudentPage> createState() => _ListStudentPageState();
 }
 
-class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
+class _ListStudentPageState extends State<ListStudentPage> {
   late List<Student> students;
   OverlayEntry? _notificationEntry;
 
@@ -56,7 +56,7 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
   }
 
   void _addStudent() async {
-    final result = await Navigator.pushNamed(context, '/tambah-mahasiswa');
+    final result = await Navigator.pushNamed(context, '/add');
     if (result != null && result is Student) {
       setState(() {
         students.add(result);
