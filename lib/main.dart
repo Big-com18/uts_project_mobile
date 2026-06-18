@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'pages/list_mahasiswa_pages.dart';
 import 'pages/tambah_mahasiswa.dart';
+import 'pages/profile_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,13 +16,18 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Student Directory',
       theme: ThemeData(
-        fontFamily: 'Inter', 
+        fontFamily: 'Inter',
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF6366F1),
+          brightness: Brightness.light,
+        ),
+        useMaterial3: true,
       ),
       initialRoute: '/',
       routes: {
         '/': (context) => const ListMahasiswaPages(),
         '/tambah-mahasiswa': (context) => const TambahMahasiswaPage(),
-
+        '/profile': (context) => const ProfilePage(),
       },
     );
   }
