@@ -83,7 +83,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
                 child: Form(
                   key: _formKey,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  // autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
