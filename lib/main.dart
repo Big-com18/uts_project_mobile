@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/list_mahasiswa_pages.dart';
+import 'pages/list_student_page.dart';
 import 'pages/tambah_mahasiswa.dart';
 import 'pages/profile_page.dart';
 
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const ListMahasiswaPages(),
+        '/': (context) => const ListStudentPage(),
         '/tambah-mahasiswa': (context) => const TambahMahasiswaPage(),
         '/profile': (context) => const ProfilePage(),
       },

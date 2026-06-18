@@ -110,7 +110,7 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.05),
+                                color: Colors.black.withValues(alpha: 0.05),
                                 blurRadius: 16,
                                 offset: const Offset(0, 4),
                               ),
@@ -182,7 +182,7 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                       _FieldLabel(label: 'Domisili'),
                       const SizedBox(height: 8),
                       DropdownButtonFormField<String>(
-                        value: _selectedDomisili,
+                        initialValue: _selectedDomisili,
                         decoration: _inputDecoration(
                             hint: 'Pilih kota / wilayah',
                             prefixIcon: Icons.location_on_outlined),
@@ -246,7 +246,7 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                             borderRadius: BorderRadius.circular(14),
                             border: Border.all(
                               color: _isAgreed
-                                  ? _indigo.withOpacity(0.3)
+                                  ? _indigo.withValues(alpha: 0.3)
                                   : Colors.grey.shade200,
                             ),
                           ),

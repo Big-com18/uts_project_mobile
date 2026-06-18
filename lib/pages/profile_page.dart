@@ -316,7 +316,7 @@ class _HeroSection extends StatelessWidget {
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: _indigo.withOpacity(0.2),
+                    color: _indigo.withValues(alpha: 0.2),
                     blurRadius: 20,
                     offset: const Offset(0, 6),
                   ),
