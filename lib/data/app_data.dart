@@ -3,31 +3,31 @@ const List<Map<String, String>> initialStudentsData = [
     'name': 'Budi Santoso',
     'avatar': 'https://i.pravatar.cc/150?img=1',
     'domisili': 'Jakarta Selatan',
-    'phone': '081234567890'
+    'phone': '081234567890',
   },
   {
     'name': 'Sari Dewi',
     'avatar': 'https://i.pravatar.cc/150?img=5',
     'domisili': 'Bekasi',
-    'phone': '087654321098'
+    'phone': '087654321098',
   },
   {
     'name': 'Ahmad Fauzi',
     'avatar': 'https://i.pravatar.cc/150?img=3',
     'domisili': 'Tangerang Selatan',
-    'phone': '082198765432'
+    'phone': '082198765432',
   },
   {
     'name': 'Rina Kusuma',
     'avatar': 'https://i.pravatar.cc/150?img=8',
     'domisili': 'Depok',
-    'phone': '089876543210'
+    'phone': '089876543210',
   },
   {
     'name': 'Dian Pratama',
     'avatar': 'https://i.pravatar.cc/150?img=11',
     'domisili': 'Bogor',
-    'phone': '085678901234'
+    'phone': '085678901234',
   },
 ];
 

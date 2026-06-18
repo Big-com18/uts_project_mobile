@@ -42,8 +42,9 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
           SnackBar(
             content: const Text('Silakan pilih domisili'),
             behavior: SnackBarBehavior.floating,
-            shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
             backgroundColor: Colors.red.shade400,
           ),
         );
@@ -74,8 +75,11 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
               child: Row(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.arrow_back_ios_new_rounded,
-                        color: Colors.black87, size: 20),
+                    icon: const Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      color: Colors.black87,
+                      size: 20,
+                    ),
                     onPressed: () => Navigator.pop(context),
                   ),
                   const Expanded(
@@ -123,18 +127,21 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   border: Border.all(
-                                      color: _indigoLight, width: 3),
+                                    color: _indigoLight,
+                                    width: 3,
+                                  ),
                                 ),
                                 child: CircleAvatar(
                                   radius: 44,
-                                  backgroundImage:
-                                  NetworkImage(_randomAvatar),
+                                  backgroundImage: NetworkImage(_randomAvatar),
                                 ),
                               ),
                               const SizedBox(height: 10),
                               Container(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 4),
+                                  horizontal: 10,
+                                  vertical: 4,
+                                ),
                                 decoration: BoxDecoration(
                                   color: _indigoLight,
                                   borderRadius: BorderRadius.circular(20),
@@ -142,8 +149,11 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Icon(Icons.auto_awesome_rounded,
-                                        size: 12, color: _indigo),
+                                    Icon(
+                                      Icons.auto_awesome_rounded,
+                                      size: 12,
+                                      color: _indigo,
+                                    ),
                                     const SizedBox(width: 4),
                                     Text(
                                       'Avatar diacak otomatis',
@@ -170,8 +180,7 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                         controller: _nameController,
                         hint: 'Masukkan nama lengkap',
                         prefixIcon: Icons.person_outline_rounded,
-                        validator: (v) =>
-                        (v == null || v.trim().isEmpty)
+                        validator: (v) => (v == null || v.trim().isEmpty)
                             ? 'Nama wajib diisi'
                             : null,
                       ),
@@ -184,13 +193,16 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                       DropdownButtonFormField<String>(
                         value: _selectedDomisili,
                         decoration: _inputDecoration(
-                            hint: 'Pilih kota / wilayah',
-                            prefixIcon: Icons.location_on_outlined),
+                          hint: 'Pilih kota / wilayah',
+                          prefixIcon: Icons.location_on_outlined,
+                        ),
                         items: domisiliList.map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value,
-                                style: const TextStyle(fontSize: 14)),
+                            child: Text(
+                              value,
+                              style: const TextStyle(fontSize: 14),
+                            ),
                           );
                         }).toList(),
                         onChanged: (newValue) {
@@ -199,9 +211,11 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                           });
                         },
                         validator: (v) =>
-                        v == null ? 'Domisili wajib dipilih' : null,
-                        icon: Icon(Icons.keyboard_arrow_down_rounded,
-                            color: Colors.grey.shade500),
+                            v == null ? 'Domisili wajib dipilih' : null,
+                        icon: Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          color: Colors.grey.shade500,
+                        ),
                         dropdownColor: Colors.white,
                         menuMaxHeight: 300,
                       ),
@@ -235,14 +249,11 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
 
                       // Consent checkbox
                       GestureDetector(
-                        onTap: () =>
-                            setState(() => _isAgreed = !_isAgreed),
+                        onTap: () => setState(() => _isAgreed = !_isAgreed),
                         child: Container(
                           padding: const EdgeInsets.all(14),
                           decoration: BoxDecoration(
-                            color: _isAgreed
-                                ? _indigoLight
-                                : Colors.white,
+                            color: _isAgreed ? _indigoLight : Colors.white,
                             borderRadius: BorderRadius.circular(14),
                             border: Border.all(
                               color: _isAgreed
@@ -251,20 +262,15 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                             ),
                           ),
                           child: Row(
-                            crossAxisAlignment:
-                            CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               AnimatedContainer(
-                                duration:
-                                const Duration(milliseconds: 150),
+                                duration: const Duration(milliseconds: 150),
                                 width: 22,
                                 height: 22,
                                 decoration: BoxDecoration(
-                                  color: _isAgreed
-                                      ? _indigo
-                                      : Colors.white,
-                                  borderRadius:
-                                  BorderRadius.circular(6),
+                                  color: _isAgreed ? _indigo : Colors.white,
+                                  borderRadius: BorderRadius.circular(6),
                                   border: Border.all(
                                     color: _isAgreed
                                         ? _indigo
@@ -274,10 +280,10 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                                 ),
                                 child: _isAgreed
                                     ? const Icon(
-                                  Icons.check_rounded,
-                                  size: 15,
-                                  color: Colors.white,
-                                )
+                                        Icons.check_rounded,
+                                        size: 15,
+                                        color: Colors.white,
+                                      )
                                     : null,
                               ),
                               const SizedBox(width: 12),
@@ -314,16 +320,14 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
                             onPressed: _isAgreed ? _submit : null,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: _indigo,
-                              disabledBackgroundColor:
-                              Colors.grey.shade300,
+                              disabledBackgroundColor: Colors.grey.shade300,
                               elevation: 0,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(14),
                               ),
                             ),
                             child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
                                   Icons.save_rounded,
@@ -359,17 +363,17 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
     );
   }
 
-  InputDecoration _inputDecoration(
-      {required String hint, required IconData prefixIcon}) {
+  InputDecoration _inputDecoration({
+    required String hint,
+    required IconData prefixIcon,
+  }) {
     return InputDecoration(
       hintText: hint,
       hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 14),
-      prefixIcon:
-      Icon(prefixIcon, color: Colors.grey.shade400, size: 20),
+      prefixIcon: Icon(prefixIcon, color: Colors.grey.shade400, size: 20),
       filled: true,
       fillColor: Colors.white,
-      contentPadding:
-      const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(14),
         borderSide: BorderSide(color: Colors.grey.shade200),
@@ -380,8 +384,7 @@ class _TambahMahasiswaPageState extends State<TambahMahasiswaPage> {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(14),
-        borderSide:
-        const BorderSide(color: Color(0xFF6366F1), width: 1.5),
+        borderSide: const BorderSide(color: Color(0xFF6366F1), width: 1.5),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(14),

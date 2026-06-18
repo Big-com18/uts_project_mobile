@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import '../data/app_data.dart';
 import '../models/student.dart';
 
-class ListMahasiswaPages extends StatefulWidget {
-  const ListMahasiswaPages({super.key});
+class ListStudentPages extends StatefulWidget {
+  const ListStudentPages({super.key});
 
   @override
-  State<ListMahasiswaPages> createState() => _ListMahasiswaPagesState();
+  State<ListStudentPages> createState() => _ListStudentPagesState();
 }
 
-class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
+class _ListStudentPagesState extends State<ListStudentPages> {
   late List<Student> students;
 
   // Brand colors
@@ -28,7 +28,7 @@ class _ListMahasiswaPagesState extends State<ListMahasiswaPages> {
   }
 
   void _addStudent() async {
-    final result = await Navigator.pushNamed(context, '/tambah-mahasiswa');
+    final result = await Navigator.pushNamed(context, '/add-student');
     if (result != null && result is Student) {
       setState(() {
         students.add(result);
