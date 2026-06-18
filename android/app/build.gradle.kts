@@ -37,6 +37,13 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+
+    packaging {
+        jniLibs {
+            keepDebugSymbols.add("**/libflutter.so")
+            keepDebugSymbols.add("**/libVkLayer_khronos_validation.so")
+        }
+    }
 }
 
 flutter {
