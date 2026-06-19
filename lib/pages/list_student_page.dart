@@ -106,17 +106,18 @@ class _ListStudentPageState extends State<ListStudentPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Student',
-                          style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.w800,
-                            color: AppTheme.textPrimary,
-                            height: 1.1,
-                          ),
-                        ),
                         Row(
                           children: [
+                            const Text(
+                              'Student',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w800,
+                                color: AppTheme.textPrimary,
+                                height: 1.1,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
                             const Text(
                               'Directory',
                               style: TextStyle(
@@ -126,19 +127,18 @@ class _ListStudentPageState extends State<ListStudentPage> {
                                 height: 1.1,
                               ),
                             ),
-                            const SizedBox(width: 8),
                             // Tiny indicator dot
-                            Container(
-                              width: 6,
-                              height: 6,
-                              decoration: const BoxDecoration(
-                                color: AppTheme.primary,
-                                shape: BoxShape.circle,
-                              ),
-                            ),
+                            // Container(
+                            //   width: 6,
+                            //   height: 6,
+                            //   decoration: const BoxDecoration(
+                            //     color: AppTheme.primary,
+                            //     shape: BoxShape.circle,
+                            //   ),
+                            // ),
                           ],
                         ),
-                        const SizedBox(height: 6),
+                        const SizedBox(height: 12),
                         // Soft pill count
                         Container(
                           padding: const EdgeInsets.symmetric(
@@ -162,39 +162,39 @@ class _ListStudentPageState extends State<ListStudentPage> {
                     ),
                   ),
                   // S1 badge
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppTheme.primary.withOpacity(0.06),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: AppTheme.primary.withOpacity(0.1),
-                        width: 1,
-                      ),
-                    ),
-                    child: const Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.school_rounded,
-                          color: AppTheme.primary,
-                          size: 16,
-                        ),
-                        SizedBox(width: 6),
-                        Text(
-                          'S1',
-                          style: TextStyle(
-                            color: AppTheme.primary,
-                            fontWeight: FontWeight.w800,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // Container(
+                  //   padding: const EdgeInsets.symmetric(
+                  //     horizontal: 12,
+                  //     vertical: 8,
+                  //   ),
+                  //   decoration: BoxDecoration(
+                  //     color: AppTheme.primary.withOpacity(0.06),
+                  //     borderRadius: BorderRadius.circular(12),
+                  //     border: Border.all(
+                  //       color: AppTheme.primary.withOpacity(0.1),
+                  //       width: 1,
+                  //     ),
+                  //   ),
+                  //   child: const Row(
+                  //     mainAxisSize: MainAxisSize.min,
+                  //     children: [
+                  //       Icon(
+                  //         Icons.school_rounded,
+                  //         color: AppTheme.primary,
+                  //         size: 16,
+                  //       ),
+                  //       SizedBox(width: 6),
+                  //       Text(
+                  //         'S1',
+                  //         style: TextStyle(
+                  //           color: AppTheme.primary,
+                  //           fontWeight: FontWeight.w800,
+                  //           fontSize: 12,
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             ),
